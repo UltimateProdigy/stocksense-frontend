@@ -12,7 +12,7 @@ import EmptyState from "../components/EmptyState";
 
 type Tab = "inventory" | "sales" | "insights";
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);

@@ -15,7 +15,7 @@ interface Props {
   onSaleRecorded: () => void;
 }
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RecordSaleForm({ products, onSaleRecorded }: Props) {
   const [selectedProduct, setSelectedProduct] = useState("");
