@@ -12,18 +12,20 @@ import EmptyState from "../components/EmptyState";
 
 type Tab = "inventory" | "sales" | "insights";
 
+const API_URL = process.env.API_URL;
+
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [sales, setSales] = useState<Sale[]>([]);
   const [activeTab, setActiveTab] = useState<Tab>("inventory");
 
   const fetchProducts = async () => {
-    const res = await axios.get("http://localhost:5000/api/products");
+    const res = await axios.get(`${API_URL}/api/products`);
     setProducts(res.data);
   };
 
   const fetchSales = async () => {
-    const res = await axios.get("http://localhost:5000/api/sales");
+    const res = await axios.get(`${API_URL}/api/sales`);
     setSales(res.data);
   };
 
@@ -77,7 +79,6 @@ export default function HomePage() {
         color: "#F5F0EB",
       }}
     >
-      {/* Radial glow */}
       <div
         className="pointer-events-none fixed"
         style={{
@@ -96,7 +97,6 @@ export default function HomePage() {
         className="relative mx-auto max-w-[1280px] px-16 py-12 xl:px-8 lg:px-8 md:px-5 md:py-7 sm:px-4 sm:py-5"
         style={{ zIndex: 1 }}
       >
-        {/* HEADER */}
         <header
           className="flex items-end justify-between mb-14 pb-8 md:flex-col md:items-start md:gap-4"
           style={{ borderBottom: "1px solid rgba(255,107,26,0.2)" }}
@@ -151,7 +151,6 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* STATS BAR */}
         <div className="grid grid-cols-3 gap-4 mb-10 sm:grid-cols-1">
           {[
             { label: "TOTAL PRODUCTS", value: products.length },
@@ -197,20 +196,15 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* MAIN GRID */}
         <div
           className="grid gap-8 md:grid-cols-1"
           style={{ gridTemplateColumns: "380px 1fr" }}
         >
-          {/* LEFT */}
           <div className="flex flex-col gap-6">
             <AddProductForm onProductAdded={fetchProducts} />
             <RecordSaleForm products={products} onSaleRecorded={refetchAll} />
           </div>
-
-          {/* RIGHT */}
           <div>
-            {/* Tabs */}
             <div
               className="flex mb-6"
               style={{ borderBottom: "1px solid rgba(255,107,26,0.2)" }}
@@ -252,8 +246,6 @@ export default function HomePage() {
                 {tabCount[activeTab]}
               </div>
             </div>
-
-            {/* Tab content */}
             {activeTab === "inventory" && (
               <div className="flex flex-col gap-3">
                 {products.length === 0 ? (

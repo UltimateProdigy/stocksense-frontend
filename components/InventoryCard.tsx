@@ -82,8 +82,6 @@ export default function InventoryCard({ name, stock, costPrice }: Props) {
           Cost Price
         </div>
       </div>
-
-      {/* Cost */}
       <div style={{ textAlign: "right" }}>
         <div
           style={{
@@ -107,8 +105,6 @@ export default function InventoryCard({ name, stock, costPrice }: Props) {
           ₦{costPrice}
         </div>
       </div>
-
-      {/* Stock */}
       <div style={{ textAlign: "right" }}>
         <div
           style={{
@@ -132,8 +128,6 @@ export default function InventoryCard({ name, stock, costPrice }: Props) {
           {stock}
         </div>
       </div>
-
-      {/* Badge */}
       <div
         style={{
           fontFamily: "'DM Mono', monospace",

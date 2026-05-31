@@ -15,6 +15,8 @@ interface Props {
   onSaleRecorded: () => void;
 }
 
+const API_URL = process.env.API_URL;
+
 export default function RecordSaleForm({ products, onSaleRecorded }: Props) {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [unitsSold, setUnitsSold] = useState("");
@@ -28,7 +30,7 @@ export default function RecordSaleForm({ products, onSaleRecorded }: Props) {
     const product = products.find((p) => p._id === selectedProduct);
     if (!product) return;
 
-    await axios.post("http://localhost:5000/api/sales", {
+    await axios.post(`${API_URL}/api/sales`, {
       productId: selectedProduct,
       productName: product.name,
       unitsSold: Number(unitsSold),
@@ -56,7 +58,6 @@ export default function RecordSaleForm({ products, onSaleRecorded }: Props) {
         <span style={panelTitleStyle}>RECORD SALE</span>
       </div>
 
-      {/* Product dropdown */}
       <div className="flex flex-col gap-1.5 mb-4">
         <label
           style={{
@@ -106,7 +107,6 @@ export default function RecordSaleForm({ products, onSaleRecorded }: Props) {
         onChange={setSellingPrice}
       />
 
-      {/* Date */}
       <div className="flex flex-col gap-1.5 mb-4">
         <label
           style={{

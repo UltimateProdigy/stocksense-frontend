@@ -8,6 +8,9 @@ interface Props {
   onProductAdded: () => void;
 }
 
+const API_URL = process.env.API_URL;
+
+
 export default function AddProductForm({ onProductAdded }: Props) {
   const [name, setName] = useState("");
   const [stock, setStock] = useState("");
@@ -15,7 +18,7 @@ export default function AddProductForm({ onProductAdded }: Props) {
 
   const handleSubmit = async () => {
     if (!name || !stock || !price) return;
-    await axios.post("http://localhost:5000/api/products", {
+    await axios.post(`${API_URL}/api/products`, {
       name,
       currentStock: Number(stock),
       costPrice: Number(price),

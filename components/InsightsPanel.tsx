@@ -15,6 +15,8 @@ interface Props {
   sales: Sale[];
 }
 
+const API_URL = process.env.API_URL;
+
 export default function InsightsPanel({ products, sales }: Props) {
   const [marketNotes, setMarketNotes] = useState("");
   const [insights, setInsights] = useState<Insight | null>(null);
@@ -26,7 +28,7 @@ export default function InsightsPanel({ products, sales }: Props) {
     setError("");
     setInsights(null);
     try {
-      const res = await axios.post("http://localhost:5000/api/insights", {
+      const res = await axios.post(`${API_URL}/api/insights`, {
         salesData: sales,
         inventory: products,
         marketNotes,
@@ -43,7 +45,6 @@ export default function InsightsPanel({ products, sales }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Market Notes */}
       <div style={panelStyle}>
         <div className="flex items-center gap-3 mb-5">
           <div
@@ -103,8 +104,6 @@ export default function InsightsPanel({ products, sales }: Props) {
           ✦ GENERATE AI INSIGHTS
         </StyledButton>
       </div>
-
-      {/* Error */}
       {error && (
         <div
           style={{
@@ -121,11 +120,8 @@ export default function InsightsPanel({ products, sales }: Props) {
           {error}
         </div>
       )}
-
-      {/* Results */}
       {insights && (
         <div className="flex flex-col gap-4">
-          {/* Trend Forecast */}
           <div
             style={{
               background: "#111111",
@@ -150,8 +146,6 @@ export default function InsightsPanel({ products, sales }: Props) {
               {insights.nextMonthTrendForecast}
             </p>
           </div>
-
-          {/* Critical Restock Alerts */}
           {insights.criticalRestockAlerts?.length > 0 && (
             <div
               style={{
@@ -202,8 +196,6 @@ export default function InsightsPanel({ products, sales }: Props) {
               </div>
             </div>
           )}
-
-          {/* Dead Stock Warnings */}
           {insights.deadStockWarning?.length > 0 && (
             <div
               style={{
@@ -254,8 +246,6 @@ export default function InsightsPanel({ products, sales }: Props) {
               </div>
             </div>
           )}
-
-          {/* All healthy */}
           {insights.criticalRestockAlerts?.length === 0 &&
             insights.deadStockWarning?.length === 0 && (
               <div
